@@ -1,10 +1,10 @@
 ---
 - hosts: all
 
-  vars_prompt:
-    - name: "ip_do_servidor"
-      prompt: "Digite o ip do Servidor à ser desabilitado no Big Ip"
-      private: no
+  # vars_prompt:
+  #   - name: "ip_do_servidor"
+  #     prompt: "Digite o ip do Servidor à ser desabilitado no Big Ip"
+  #     private: no
 
   vars:
     provider:

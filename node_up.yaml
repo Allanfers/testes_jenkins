@@ -1,12 +1,12 @@
 ---
 - hosts: all
 
-  vars_prompt:
-    - name: "ip_do_servidor"
-      prompt: "Digite o ip do Servidor à ser reabilitado no Big Ip"
-      private: no
-    - name: "ambiente" 
-      prompt: "Digite o nome do ambiente envolvido: dev, inside ou dmz" 
+  # vars_prompt:
+  #   - name: "ip_do_servidor"
+  #     prompt: "Digite o ip do Servidor à ser reabilitado no Big Ip"
+  #     private: no
+  #   - name: "ambiente" 
+  #     prompt: "Digite o nome do ambiente envolvido: dev, inside ou dmz" 
 
   vars:
     provider:
@@ -22,7 +22,7 @@
       - name: Run single command - provider-cli
         bigip_command:
           commands:
-            - modify ltm node "{{ ip_do_servidor }}" state user-up
+            - modify ltm node ${ip_do_servidor} state user-up
           provider: "{{ provider }}"
         register: result
         delegate_to: localhost
