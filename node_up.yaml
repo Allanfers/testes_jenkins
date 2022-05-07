@@ -22,7 +22,7 @@
       - name: Run single command - provider-cli
         bigip_command:
           commands:
-            - modify ltm node ${ip_do_servidor} state user-up
+            - modify ltm node "{{ ip_do_servidor }}" state user-up
           provider: "{{ provider }}"
         register: result
         delegate_to: localhost
