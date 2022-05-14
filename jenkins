@@ -1,0 +1,42 @@
+pipeline {
+   environment {
+     ip_do_servidor = "${ip_servidor_from_jen}"
+   }    
+    
+    agent any
+    stages {
+        stage('Clone') {
+            steps {
+                // Get code from a GitHub repository
+                git branch: 'main', url: 'https://github.com/Allanfers/testes_jenkins'
+            }
+        }
+        stage('Setup parameters') {
+            steps {
+                script { 
+                    properties([
+                        parameters([
+                            choice(
+                                choices: ['DMZ', 'INSIDE'], 
+                                name: 'Ambiente'
+                            ),
+                            string(
+                                defaultValue: '10.0.0.1', 
+                                name: 'ip_servidor_from_jen', 
+                                description: 'digita o ip'
+                            )
+                        ])
+                    ])
+                }
+            }
+        }
+            
+        stage('Run') {
+            steps {
+                // roda o playbook
+                ansiblePlaybook inventory: './hosts', playbook: './node_down.yaml'
+            }
+            
+        }
+    }
+}
